@@ -24,8 +24,7 @@ class TreasureHunt:
                     new_y -= 1
                 elif direction == "down":
                     new_y += 1
-                    
-                if 0 < new_x < len(self.state[0]) and 0 < new_y < len(self.state):
+                if 0 <= new_x < len(self.state[0]) and 0 <= new_y < len(self.state):
                     new_state = (new_x, new_y)
                     if self.state[new_y][new_x] == 0 and new_state not in visited:
                         visited.add(new_state)
