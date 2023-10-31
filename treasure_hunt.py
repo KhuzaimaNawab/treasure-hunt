@@ -7,25 +7,29 @@ class TreasureHunt:
         self.starting_position = (0, 0)
         self.goal_position = (6,4)
 
-    def bfs_pathfinding(self):
+    def bfs(self):
         queue = deque([(self.starting_position, [])])
         visited = set()
-
         while queue:
             (x, y), path = queue.popleft()
-
             if (x, y) == self.goal_position:
                 return path
-
-            if 0 <= x < len(self.state[0]) and 0 <= y < len(self.state):
-                if self.state[y][x] == 0 and (x, y) not in visited:
-                    visited.add((x, y))
-                    for dx, dy in [(1, 0), (-1, 0), (0, 1), (0, -1)]:
-                        new_x, new_y = x + dx, y + dy
-                        if 0 <= new_x < len(self.state[0]) and 0 <= new_y < len(self.state):
-                            queue.append(((new_x, new_y), path + [(x, y)]))
-
-        return []
+            for direction in ["left", "right", "up", "down"]:
+                new_x, new_y = x, y
+                if direction == "left":
+                    new_x -= 1
+                elif direction == "right":
+                    new_x += 1
+                elif direction == "up":
+                    new_y -= 1
+                elif direction == "down":
+                    new_y += 1
+                    
+                if 0 < new_x < len(self.state[0]) and 0 < new_y < len(self.state):
+                    new_state = (new_x, new_y)
+                    if self.state[new_y][new_x] == 0 and new_state not in visited:
+                        visited.add(new_state)
+                        queue.append((new_state, path + [(x, y)]))
 
 if __name__ == "__main__":
     pygame.init()
@@ -49,7 +53,7 @@ if __name__ == "__main__":
 
     treasureHunt = TreasureHunt(state)
 
-    path = treasureHunt.bfs_pathfinding()
+    path = treasureHunt.bfs()
 
     running = True
     step = 0
