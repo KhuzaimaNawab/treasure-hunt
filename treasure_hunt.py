@@ -70,16 +70,13 @@ if __name__ == "__main__":
                     pygame.draw.rect(screen, WHITE, (x * GRID_SIZE, y * GRID_SIZE, GRID_SIZE, GRID_SIZE))
                 else:
                     pygame.draw.rect(screen, BLUE, (x * GRID_SIZE, y * GRID_SIZE, GRID_SIZE, GRID_SIZE))
-
+                    
+        goal_x, goal_y = treasureHunt.goal_position
+        pygame.draw.rect(screen, GREEN, (goal_x * GRID_SIZE, goal_y * GRID_SIZE, GRID_SIZE, GRID_SIZE))
         if step < len(path):
             x, y = path[step]
             pygame.draw.rect(screen, RED, (x * GRID_SIZE, y * GRID_SIZE, GRID_SIZE, GRID_SIZE))
             step += 1
-        
-        goal_x, goal_y = treasureHunt.goal_position
-        pygame.draw.rect(screen, GREEN, (goal_x * GRID_SIZE, goal_y * GRID_SIZE, GRID_SIZE, GRID_SIZE))
-
         pygame.display.flip()
         pygame.time.wait(500)
-
     pygame.quit()
